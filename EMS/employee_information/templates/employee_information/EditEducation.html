@@ -1,0 +1,73 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'updateEducation' emp.id %}" class="form-inline" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <h4>Educational Details</h4>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th>Class</th>
+                <th>Stream</th>
+                <th>University/College</th>
+                <th>Passing Year</th>
+                <th>Grade/Percentage</th>
+                <th>Attach in PDF</th>
+              </tr>
+              <tr>
+                <td class="text-left">10th</td>
+                <td><input type="text" name="tenth_stream" value="{{emp.tenth_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" name="tenth_Uni" value="{{emp.tenth_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" name="tenth_year" value="{{emp.tenth_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" name="tenth_percent" value="{{emp.tenth_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp.tenth_pdf}}">{{emp.tenth_pdf}}</a></p><input type="file" name="tenth_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">12th</td>
+                <td><input type="text" name="twelfth_stream" value="{{emp.twelfth_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" name="twelfth_Uni" value="{{emp.twelfth_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" name="twelfth_year" value="{{emp.twelfth_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" name="twelfth_percent" value="{{emp.twelfth_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp.twelfth_pdf}}">{{emp.twelfth_pdf}}</a></p><input type="file" name="twelfth_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Degree</td>
+                <td><input type="text" name="degree_stream" value="{{emp.degree_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" name="degree_Uni" value="{{emp.degree_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" name="degree_year" value="{{emp.degree_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" name="degree_percent" value="{{emp.degree_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp.degree_pdf}}">{{emp.degree_pdf}}</a></p><input type="file" name="degree_pdf"  accept=".pdf"></td>
+              </tr>
+               <tr>
+                <td class="text-left">MasterDegree</td>
+                <td><input type="text" name="md_stream" value="{{emp.master_degree_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" name="md_Uni" value="{{emp.master_degree_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" name="md_year" value="{{emp.master_degree_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" name="md_percent" value="{{emp.master_degree_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp.master_degree_pdf}}">{{emp.master_degree_pdf}}</a></p><input type="file" name="md_pdf" accept=".pdf"></td>
+              </tr>
+               <tr>
+                <td  class="text-left">Diploma</td>
+                <td><input type="text" name="diploma_stream" value="{{emp.diploma_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" name="diploma_Uni" value="{{emp.diploma_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" name="diploma_year" value="{{emp.diploma_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" name="diploma_percent" value="{{emp.diploma_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp.diploma_pdf}}">{{emp.diploma_pdf}}</a></p><input type="file" name="diploma_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Other</td>
+                <td><input type="text" name="other_stream" value="{{emp.other_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" name="other_Uni" value="{{emp.other_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" name="other_year" value="{{emp.other_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" name="other_percent" value="{{emp.other_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp.other_pdf}}">{{emp.other_pdf}}</a></p><input type="file" name="other_pdf" accept=".pdf"></td>
+              </tr>
+            </table>
+                <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+    <div class="mdc-card" style="margin-left:5%;">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'salary_details' %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-2">Select Date For Salary Slip</label>
+                        <select name="date" id="date" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            <option value="">Select Option</option>
+                            {% for salary_date in salary_date %}
+                                    <option value="{{ salary_date.id }}">{{ salary_date.date }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+                 <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                    <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><span>Cancel</span></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

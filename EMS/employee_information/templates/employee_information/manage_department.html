@@ -1,0 +1,83 @@
+<div class="container-fluid">
+    <form action="" id="department-form">
+        <input name="id" type="hidden" value="{% if department.pk %}{{department.pk}}{% endif %}">
+        <div class="form-group mb-3">
+            <label class="control-label" for="name">Department Name</label>
+            <input class="form-control form-control-sm rounded-0" id="name" name="name" required
+                   type="text" value="{% if department.name %}{{department.name}}{% endif %}">
+        </div>
+        <div class="form-group mb-3">
+            <label class="control-label" for="description">Description</label>
+            <textarea class="form-control form-control-sm rounded-0" id="description" name="description" required
+                      rows="5">{% if department.description %}{{department.description}}{% endif %}</textarea>
+        </div>
+        <div class="form-group mb-3">
+            <label class="control-label" for="status">Status</label>
+            <select class="form-control form-control-sm rounded-0" id="status" name="status" required>
+                {% if department.status and department.status == 1 %}
+                <option selected value="1">Active</option>
+                {% else %}
+                <option value="1">Active</option>
+                {% endif %}
+
+                {% if department.status and department.status == 0 %}
+                <option selected value="0">Inactive</option>
+                {% else %}
+                <option value="0">Inactive</option>
+                {% endif %}
+            </select>
+        </div>
+    </form>
+</div>
+<script>
+    $(function() {
+        $('#department-form').submit(function(e) {
+            e.preventDefault();
+            var _this = $(this)
+            $('.err-msg').remove();
+            var el = $('<div>')
+            el.addClass("alert alert-danger err-msg")
+            el.hide()
+            if (_this[0].checkValidity() == false) {
+                _this[0].reportValidity();
+                return false;
+            }
+            start_loader();
+            $.ajax({
+                headers: {
+                    "X-CSRFToken": '{{csrf_token}}'
+                },
+                url: "{% url 'save-department-page' %}",
+                data: new FormData($(this)[0]),
+                cache: false,
+                contentType: false,
+                processData: false,
+                method: 'POST',
+                type: 'POST',
+                dataType: 'json',
+                error: err => {
+                    console.log(err)
+                    alert_toast("An error occured", 'error');
+                    end_loader();
+                },
+                success: function(resp) {
+                    if (typeof resp == 'object' && resp.status == 'success') {
+                        el.removeClass("alert alert-danger err-msg")
+                        location.reload()
+                    } else if (resp.status == 'failed' && !!resp.msg) {
+                        el.text(resp.msg)
+                    } else {
+                        el.text("An error occured", 'error');
+                        end_loader();
+                        console.err(resp)
+                    }
+                    _this.prepend(el)
+                    el.show('slow')
+                    $("html, body, .modal").scrollTop(0);
+                    end_loader()
+                }
+            })
+        })
+    })
+
+</script>

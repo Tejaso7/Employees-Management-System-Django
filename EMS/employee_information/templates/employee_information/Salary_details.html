@@ -1,0 +1,117 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+{% load mathfilters %}
+{% load static %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-11" style="margin-left:10%;">
+    <div class="mdc-card">
+        <table class="table border border-dark border-bottom-0">
+            <tbody>
+            <tr>
+                <td class="border-0">
+                    <h5 class="text-center fw-bold"><span class="float-start" style="margin-right:40%;"><img src="{% static 'logo.png' %}"></span>Salary Slip<span class=""  style="margin-left:49%;">Pay Period: {{salary.date|date:'F-o'}}</span></h5>
+                </td>
+            </tr>
+            <tr>
+                <td class="border-0" colspan="2">
+                    <h6 class="text-left fw-bold border-0">Company Name : Distinct Digital Media Pvt.Ltd.</h6>
+                    <h6 class="text-left border-0 fw-bold">Address : Distinct Digital Media Pvt.Ltd. Vascon Almonte IT Park,Sprint Co-Working Space 6th Floor,<br>
+                    <span class="text-left fw-bold border-0">Rakshak Nagar,near Reliance Mall,Kharadi,Pune,Maharashtra,India , Pune-411014</span></h6>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="1">
+                    <fieldset style="margin-top:-1.9%;">
+                        <h6 class="fw-bold border-0" style="margin-right:100%;">Employee Name : {{ employee.emp_name }}</h6>
+                        <h6 class="col-6 text-left fw-bold">Date Of Joining : {{ employee.joining_date }}</h6>
+                        <h6 class="col-6 text-left fw-bold">PAN Number : {{ employee.pancard }}</h6>
+                        <h6 class="col-6 text-left fw-bold">Branch : Kharadi </h6>
+                        <h6 class="col-6 text-left fw-bold">Gross : {{salary.gross|floatformat:'0'}}</h6>
+                        <h6 class="col-6 text-left fw-bold">Payable Days : {{salary.payable_days|floatformat:'0'}}</h6>
+                    </fieldset>
+                </td>
+                <td colspan="1">
+                    <fieldset class="d-flex flex-column align-items-start" style="margin-left:30%;">
+                        <h6 class="fw-bold">Employee ID :  {{ employee.employee_ID }}</h6>
+                        <h6 class="fw-bold">Designation :  {{ employee.designation.name }}</h6>
+                        <h6 class="fw-bold">Department :  {{ employee.department.name }}</h6>
+                        <h6 class="fw-bold">UAN No :  {{salary.uan_no|floatformat:'0'}}</h6>
+                        <h6 class="fw-bold">CTC :  {{salary.ctc|floatformat:'0'}}</h6>
+                    </fieldset>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <table class="table border border-dark" style="margin-top:-1.8%">
+            <tbody>
+            <tr>
+                <th colspan='2' class="text-left border-dark border-right fw-bold h6"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Payment</th>
+                <th colspan='2' class="text-left border-dark border-right fw-bold h6">Deduction</th>
+            </tr>
+            <tr>
+                <td class="text-left border-bottom-0 h6">Basic Salary</td>
+                <td class="border-dark border-right border-bottom-0 h6">{{salary.basic_salary}}</td>
+                <td class="text-left border-bottom-0 h6">PT Maharashtra</td>
+                <td class="border-bottom-0 h6">{{salary.pt_maharashtra}}</td>
+            </tr>
+            <tr>
+                <td class="text-left border-bottom-0 h6">HRA</td>
+                <td class="border-right border-dark border-right border-bottom-0 h6">{{salary.HRA}}</td>
+                <td class="text-left border-bottom-0 h6">Employers 's share in PF</td>
+                <td class="border-bottom-0 h6">{{salary.employers_share_in_pf}}</td>
+            </tr>
+            <tr>
+                <td class="text-left border-bottom-0 h6">Medical Allowance</td>
+                <td class="border-dark border-right border-bottom-0 h6">{{salary.medical_allowance}}</td>
+                <td class="text-left border-bottom-0 h6">Health Insurance</td>
+                <td class="border-bottom-0 h6">{{salary.health_insurance}}</td>
+            </tr>
+            <tr>
+                <td class="text-left border-bottom-0 h6">Conveyance Allowance</td>
+                <td class="border-dark border-right border-bottom-0 h6">{{salary.conveyance_allowance}}</td>
+                <td class="text-left border-bottom-0 h6">Employee 's share in PF</td>
+                <td class="border-bottom-0 h6">{{salary.employee_share_in_pf}}</td>
+            </tr>
+            <tr>
+                <td class="text-left border-bottom-0 h6">Leave Travel Allowance</td>
+                <td class="border-dark border-right border-bottom-0 h6">{{salary.leave_travel_allowance}}</td>
+                <td class="text-left border-bottom-0 h6">Other</td>
+                <td class="border-bottom-0 h6">{{salary.other}}</td>
+            </tr>
+            <tr>
+                <td class="text-left border-bottom-0 h6">Special allowance</td>
+                <td class="border-dark border-right border-bottom-0 h6">{{salary.special_allowance}}</td>
+                <td class="text-left border-bottom-0 h6"></td>
+                <td class="border-bottom-0 h6"></td>
+            </tr>
+            <tr>
+                <th colspan='2' class="border-dark border-top border-right fw-bold h6"><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>Total Payments<span class="float-end">{{total_payment}}</span></th>
+                <th colspan='2' class="text-left border-dark border-top fw-bold h6">Total Deductions<span class="float-end">{{deduction}}</span></th>
+            </tr>
+            <tr>
+                <th colspan='2' class="text-left border-dark border-top fw-bold h6"></th>
+                <th colspan='2' class="text-right border-dark border-top fw-bold h6">Net Pay :&nbsp;&nbsp; {{net_pay}}</th>
+            </tr>
+            <tr>
+                <th class="text-center border-dark border h6 fw-bold">Total Days</th>
+                <th class="text-center border-dark border h6 fw-bold">Paid Days(TD/WO/HL/PL/OT/OH/CO)</th>
+                <th class="text-center border-dark border h6 fw-bold">Unpaid</th>
+                <th class="text-center border-dark border h6 fw-bold">Leave Saved Monthly Yearly</th>
+            </tr>
+            <tr>
+                <td class="text-center border-dark border h6">{{salary.date|date:'t'}}</td>
+                <td class="text-center border-dark border h6">{{salary.payable_days|floatformat:'0'}}({{salary.payable_days|floatformat:'0'}}/0/0/0/0/0/0)</td>
+                <td class="text-center border-dark border h6">{{ salary.date|date:'t'|sub:salary.payable_days|floatformat:'0' }}</td>
+                <td class="text-center border-dark border h6">Yearly</td>
+            </tr>
+            </tbody>
+        </table>
+        <p class="">*Note : TD-Total worked days, WO- Weekly Off, HL-Paid Holidays, PL-Paid Leave, OT-Over Time Days, OH-Over Time Hrs,CO-Compensatory Off<br>
+                    <span>*Note : Leave Balance (if any) as on {{salary.date|date:'F-o'}}</span></p>
+         <p class="fw-bold mx-1">Amount in Words : Rupees  {{net_pay_in_words}}  Only</p>
+        <div class="text-center mt-5">
+             <a class="me-2" target="_blank" href="{% url 'render_to_pdf' %}"><span class="btn btn-outline-danger btn-sm"> Download </span></a>
+            <a class="me-2" onclick="javascript:history.back();"><span class="btn btn-outline-primary btn-sm">Back</span></a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

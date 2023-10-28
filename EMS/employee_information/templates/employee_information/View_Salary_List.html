@@ -1,0 +1,116 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Back</strong></a>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="initCom" style="overflow:auto; width:100%; position:relative; padding:2px">
+                        <div class="table-responsive text-nowrap p-2">
+                            <table cellspacing="1" class="table table-hover table-bordered table-sm me-3"
+                                   id="dtBasicExample" width="100%">
+                                <thead>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-left">Employee</th>
+                                    <th class="th-sm fw-bold text-center">Date</th>
+                                    <th class="th-sm fw-bold text-center">Basic Salary</th>
+                                    <th class="th-sm fw-bold text-center">HRA</th>
+                                    <th class="th-sm fw-bold text-center">Medical Allowance</th>
+                                    <th class="th-sm fw-bold text-center ">Conveyance Allowance</th>
+                                    <th class="th-sm fw-bold text-center">Leave Travel Allowance</th>
+                                    <th class="th-sm fw-bold text-center">Special Allowance</th>
+                                    <th class="th-sm fw-bold text-center">PT Maharashtra</th>
+                                    <th class="th-sm fw-bold text-center">Employee 's share in PF</th>
+                                    <th class="th-sm fw-bold text-center">Employers 's share in PF</th>
+                                    <th class="th-sm fw-bold text-center">Health Insurance</th>
+                                    <th class="th-sm fw-bold text-center">Gross</th>
+                                    <th class="th-sm fw-bold text-center">CTC</th>
+                                    <th class="th-sm fw-bold text-center">UAN Number</th>
+                                    <th class="th-sm fw-bold text-center">Payable Days</th>
+                                    <th class="th-sm fw-bold text-center">Other</th>
+                                    <th class="th-sm fw-bold text-left">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr hidden>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                    <td>$320,800</td>
+                                    <td>$320,800</td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                </tr>
+                                {% for salary in salary %}
+
+                                <tr>
+                                    <td class="text-center">{{forloop.counter}}</td>
+                                    <td class="text-left">{{salary.employee.emp_name}}</td>
+                                    <td class="text-center">{{salary.date}}</td>
+                                    <td class="text-center">{{salary.basic_salary}}</td>
+                                    <td class="text-center">{{salary.HRA}}</td>
+                                    <td class="text-center">{{salary.medical_allowance}}</td>
+                                    <td class="text-center">{{salary.conveyance_allowance}}</td>
+                                    <td class="text-center">{{salary.leave_travel_allowance}}</td>
+                                    <td class="text-center">{{salary.special_allowance}}</td>
+                                    <td class="text-center">{{salary.pt_maharashtra}}</td>
+                                    <td class="text-center">{{salary.employee_share_in_pf}}</td>
+                                    <td class="text-center">{{salary.employers_share_in_pf}}</td>
+                                    <td class="text-center">{{salary.health_insurance}}</td>
+                                    <td class="text-center">{{salary.gross|floatformat:'0'}}</td>
+                                    <td class="text-center">{{salary.ctc|floatformat:'0'}}</td>
+                                    <td class="text-center">{{salary.uan_no|floatformat:'0'}}</td>
+                                    <td class="text-center">{{salary.payable_days|floatformat:'0'}}</td>
+                                    <td class="text-center">{{salary.other}}</td>
+                                    <td>
+                                        <a class="me-2" href="{% url 'Edit_salary' salary.id  %}"><span class="btn btn-outline-primary btn-sm"> Edit </span></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-left">Employee</th>
+                                    <th class="th-sm fw-bold text-center">Date</th>
+                                    <th class="th-sm fw-bold text-center">Basic Salary</th>
+                                    <th class="th-sm fw-bold text-center">HRA</th>
+                                    <th class="th-sm fw-bold text-center">Medical Allowance</th>
+                                    <th class="th-sm fw-bold text-center ">Conveyance Allowance</th>
+                                    <th class="th-sm fw-bold text-center">Leave Travel Allowance</th>
+                                    <th class="th-sm fw-bold text-center">Special Allowance</th>
+                                    <th class="th-sm fw-bold text-center">PT Maharashtra</th>
+                                    <th class="th-sm fw-bold text-center">Employee 's share in PF</th>
+                                    <th class="th-sm fw-bold text-center">Employers 's share in PF</th>
+                                    <th class="th-sm fw-bold text-center">Health Insurance</th>
+                                    <th class="th-sm fw-bold text-center">Gross</th>
+                                    <th class="th-sm fw-bold text-center">CTC</th>
+                                    <th class="th-sm fw-bold text-center">UAN Number</th>
+                                    <th class="th-sm fw-bold text-center">Payable Days</th>
+                                    <th class="th-sm fw-bold text-center">Other</th>
+                                    <th class="th-sm fw-bold text-left">Action</th>
+
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

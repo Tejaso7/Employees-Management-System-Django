@@ -1,0 +1,14 @@
+<ul class="container-fluid p-0">
+  {% for message in messages %}
+  <li class="alert {{ message.tags }} alert-dismissible wd-4" style="width:21rem;overflow:hidden;" role="alert" >
+    {{ message }}
+  </li>
+  {% endfor %}
+</ul>
+
+
+<script>
+$(document).ready(function(){
+    $('.alert').delay(6000).fadeOut();
+});
+</script>

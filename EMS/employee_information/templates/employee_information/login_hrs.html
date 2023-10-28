@@ -1,0 +1,75 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+{% load mathfilters %}
+{% include 'employee_information/messages.html' %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row mt-3 mx-1">
+            <h4 class="col text-left">Working Hours History</h4>
+            <h4 class="text-left">Day:</h4>
+        </div>
+        <div class="container first-container col-sm-12 pull-left">
+            <table class="table table-hover table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th class="text-center text-dark fw-bold">Sr.No.</th>
+                    <th class="text-left text-dark fw-bold">User</th>
+                    <th class="text-center text-dark fw-bold">Day</th>
+                    <th class="text-center text-dark fw-bold">First Log-On</th>
+                    <th class="text-center text-dark fw-bold">Last Log-Off</th>
+                    <th class="text-center text-dark fw-bold">Total Session Time</th>
+                    <th class="text-center text-dark fw-bold">Active Time</th>
+                    <th class="text-center text-dark fw-bold">Locked Time</th>
+                    <th class="text-center text-dark fw-bold">View</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr hidden>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>61</td>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                </tr>
+
+                {% for login_hrs_details in login_hrs_details %}
+                <tr>
+                    <td class="text-center">{{forloop.counter}}</td>
+                    <td class="text-left">{{login_hrs_details.employee.emp_name}}</td>
+                    <td class="text-center">{{login_hrs_details.date}}</td>
+                    <td class="text-center">{{login_hrs_details.login_dtime|time:'h:i:s'}}</td>
+                    <td class="text-center">{{login_hrs_details.logout_dtime|time:'h:i:s'}}</td>
+                    <td class="text-center">{{ login_hrs_details.session_time }}</td>
+                    <td class="text-center">{{ login_hrs_details.active_time }}</td>
+                    <td class="text-center">{{ login_hrs_details.break_time }}</td>
+                    <td>
+                        <a class="me-2" href="#"><span
+                                class="btn-sm text-left material-icons mdc-list-item__start-detail mdc-drawer-item-icon" style="color:green;">add_box
+                        </span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th class="text-center">Sr.No.</th>
+                    <th class="text-left">User</th>
+                    <th class="text-center">Day</th>
+                    <th class="text-center">First Log-On</th>
+                    <th class="text-center">Last Log-Off</th>
+                    <th class="text-center">Total Session Time</th>
+                    <th class="text-center">Active Time</th>
+                    <th class="text-center">Locked Time</th>
+                    <th class="text-center">View</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

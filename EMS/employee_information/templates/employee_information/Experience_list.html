@@ -1,0 +1,76 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Back</strong></a>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="initCom" style="overflow:auto; width:100%; position:relative; padding:2px">
+                        <div class="table-responsive text-nowrap p-2">
+                            <table cellspacing="1" class="table table-hover table-bordered table-sm me-3"
+                                   id="dtBasicExample" width="100%">
+                                <thead>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-center">Master Id</th>
+                                    <th class="th-sm fw-bold text-left">Company Name</th>
+                                    <th class="th-sm fw-bold text-left">Designation</th>
+                                    <th class="th-sm fw-bold text-center">Start date at Company</th>
+                                    <th class="th-sm fw-bold text-left">End date at Company</th>
+                                    <th class="th-sm fw-bold text-left ">Total Months</th>
+                                    <th class="th-sm fw-bold text-left">Reason for Leave</th>
+                                    <th class="th-sm fw-bold">Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr hidden>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                {% for experience in experience_list %}
+
+                                <tr>
+                                    <td class="text-center">{{forloop.counter}}</td>
+                                    <td class="text-center">{{experience.id}}</td>
+                                    <td class="text-left">{{experience.company}}</td>
+                                    <td class="text-left">{{experience.designation}}</td>
+                                    <td class="text-center">{{experience.start_date}}</td>
+                                    <td class="text-center">{{experience.end_date}}</td>
+                                    <td class="text-center">{{experience.total_months}}</td>
+                                    <td class="text-left">{{experience.leave_reason}}</td>
+                                    <td>
+                                        <a class="me-2" href="{% url 'Edit_experience' experience.id  %}"><span class="btn btn-outline-primary btn-sm"> Edit </span></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-center">Master Id</th>
+                                    <th class="th-sm fw-bold text-left">Company Name</th>
+                                    <th class="th-sm fw-bold text-left">Designation</th>
+                                    <th class="th-sm fw-bold text-center">Start date at Company</th>
+                                    <th class="th-sm fw-bold text-left">End date at Company</th>
+                                    <th class="th-sm fw-bold text-left ">Total Months</th>
+                                    <th class="th-sm fw-bold text-left">Reason for Leave</th>
+                                    <th class="th-sm fw-bold">Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

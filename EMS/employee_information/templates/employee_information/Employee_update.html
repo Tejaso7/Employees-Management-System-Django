@@ -1,0 +1,228 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'updatePersonal' emp.id %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <h4>Employee Details</h4>
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2">Name</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="name" type="text" value="{{ emp.emp_name }}"/>
+
+                        <label class="mx-2 my-1">Email</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="email" type="email" value="{{ emp.email }}"/>
+
+                        <label class="mx-2 my-1">Contact</label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="contact" type="tel" value="{{ emp.phone }}"/>
+
+                        <label class="mx-2 my-1">Address</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="address" type="text" value="{{ emp.address }}"/>
+
+                        <label  class="mx-2 my-1">Employee Id</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="empid" type="text" value="{{ emp.employee_ID }}"/>
+
+                        <label class="mx-2 my-1">Emergency Contact</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="emer_contact" type="tel" value="{{ emp.emergency_phone }}"/>
+                    </div>
+
+                    <div class="col form-group">
+                        <label class="mx-2">Blood Group</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="blood" type="text" value="{{ emp.blood_grp }}"/>
+
+                        <label class="mx-2 my-1">PAN Number </label>
+                        <input class="form-control input-lg ml-2 mr-2" name="pan" type="text" value="{{ emp.pancard }}"/>
+
+                        <label class="mx-2 my-1">Aadhar Number </label>
+                        <input class="form-control input-lg ml-2 mr-2" name="aadhar" type="text" value="{{ emp.adharcard }}"/>
+
+
+                        <label class="mx-2 my-1">Department</label>
+                        <select name="department_id" id="department_id" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            <option value="{{emp.department.id}}">{{emp.department.name}}</option>
+                            {% for department in departments %}
+                                {% if employee.department and employee.department == department.id %}
+                                <option value="{{ department.id }}" selected>{{ department.name }}</option>
+                                {% else %}
+                                <option value="{{ department.id }}">{{ department.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+
+                        </select>
+
+                        <label class="mx-2 my-1">Designation</label>
+                        <select name="designation" id="designation_id" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            <option value="{{ emp.designation.id}}">{{ emp.designation.name}}</option>
+                            {% for designation in designations %}
+                                {% if employee.designation and employee.designation == designation.id %}
+                                <option value="{{ designation.id }}" selected>{{ designation.name }}</option>
+                                {% else %}
+                                <option value="{{ designation.id }}">{{ designation.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+
+                        </select>
+
+                        <label class="mx-2 my-1">Joining Date</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="joining" type="date" value="{{emp.joining_date|date:'Y-m-d'}}"/>
+                    </div>
+                </div>
+
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<div class="mdc-card">
+    <h4 class="text-left my-2">Educational Details<span class="float-end"><a class="btn btn-outline-secondary mx-1" href="{% url 'add_education'  %}">Add</a></span></h4>
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'updateEducation' emp.id %}" class="form-inline" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th class=" text-center text-dark h6">Class</th>
+                <th class="text-dark h6">Stream</th>
+                <th class="text-dark h6">University/College</th>
+                <th class="text-dark h6">Passing Year</th>
+                <th class="text-dark h6">Grade/Percentage</th>
+                <th class="text-dark h6">Attach in PDF</th>
+              </tr>
+              <tr>
+                <td class="text-left">10th</td>
+                <td><input type="text" class="form-control input" name="tenth_stream" value="{{emp1.tenth_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" class="form-control input" name="tenth_Uni" value="{{emp1.tenth_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" class="form-control input" name="tenth_year" value="{{emp1.tenth_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" class="form-control input" name="tenth_percent" value="{{emp1.tenth_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp1.tenth_pdf}}">{{emp1.tenth_pdf}}</a></p><input type="file" class="form-control input-sm" name="tenth_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">12th</td>
+                <td><input type="text" class="form-control input" name="twelfth_stream" value="{{emp1.twelfth_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" class="form-control input" name="twelfth_Uni" value="{{emp1.twelfth_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" class="form-control input" name="twelfth_year" value="{{emp1.twelfth_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" class="form-control input" name="twelfth_percent" value="{{emp1.twelfth_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp1.twelfth_pdf}}">{{emp1.twelfth_pdf}}</a></p><input type="file" class="form-control input-sm" name="twelfth_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Degree</td>
+                <td><input type="text" class="form-control input" name="degree_stream" value="{{emp1.degree_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" class="form-control input" name="degree_Uni" value="{{emp1.degree_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" class="form-control input" name="degree_year" value="{{emp1.degree_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" class="form-control input" name="degree_percent" value="{{emp1.degree_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp1.degree_pdf}}">{{emp1.degree_pdf}}</a></p><input type="file" class="form-control input-sm" name="degree_pdf"  accept=".pdf"></td>
+              </tr>
+<!--               <tr>-->
+<!--                <td class="text-left">MasterDegree</td>-->
+<!--                <td><input type="text" name="md_stream" value="{{emp1.master_degree_stream}}" placeholder="Enter Stream"></td>-->
+<!--                <td><input type="text" name="md_Uni" value="{{emp1.master_degree_university}}" placeholder="Enter University/College"></td>-->
+<!--                <td><input type="text" name="md_year" value="{{emp1.master_degree_year}}" placeholder="Enter Passing Year"></td>-->
+<!--                <td><input type="text" name="md_percent" value="{{emp1.master_degree_percent}}" placeholder="Enter Percentage"></td>-->
+<!--                <td><p class="text-left"><a href="{{emp1.master_degree_pdf}}">{{emp1.master_degree_pdf}}</a></p><input type="file" name="md_pdf" accept=".pdf"></td>-->
+<!--              </tr>-->
+<!--               <tr>-->
+<!--                <td  class="text-left">Diploma</td>-->
+<!--                <td><input type="text" name="diploma_stream" value="{{emp1.diploma_stream}}" placeholder="Enter Stream"></td>-->
+<!--                <td><input type="text" name="diploma_Uni" value="{{emp1.diploma_university}}" placeholder="Enter University/College"></td>-->
+<!--                <td><input type="text" name="diploma_year" value="{{emp1.diploma_year}}" placeholder="Enter Passing Year"></td>-->
+<!--                <td><input type="text" name="diploma_percent" value="{{emp1.diploma_percent}}" placeholder="Enter Percentage"></td>-->
+<!--                <td><p class="text-left"><a href="{{emp1.diploma_pdf}}">{{emp1.diploma_pdf}}</a></p><input type="file" name="diploma_pdf" accept=".pdf"></td>-->
+<!--              </tr>-->
+              <tr>
+                <td class="text-left">Other</td>
+                <td><input type="text" class="form-control input" name="other_stream" value="{{emp1.other_stream}}" placeholder="Enter Stream"></td>
+                <td><input type="text" class="form-control input" name="other_Uni" value="{{emp1.other_university}}" placeholder="Enter University/College"></td>
+                <td><input type="text" class="form-control input" name="other_year" value="{{emp1.other_year}}" placeholder="Enter Passing Year"></td>
+                <td><input type="text" class="form-control input" name="other_percent" value="{{emp1.other_percent}}" placeholder="Enter Percentage"></td>
+                <td><p class="text-left"><a href="{{emp1.other_pdf}}">{{emp1.other_pdf}}</a></p><input type="file" class="form-control input-sm" name="other_pdf" accept=".pdf"></td>
+              </tr>
+            </table>
+                <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <h4 class="text-left my-1">Experience Details<span class="float-end mr-2"><a class="btn btn-outline-secondary mx-3" href="{% url 'add_experience'  %}">Add</a></span></h4>
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="initCom" style="overflow:auto; width:100%; position:relative; padding:2px">
+                        <div class="table-responsive text-nowrap p-2">
+                            <table cellspacing="1" class="table table-hover table-bordered table-sm me-3"
+                                   id="dtBasicExample" width="100%">
+                                <thead>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center text-dark h6">#</th>
+                                    <th class="th-sm fw-bold text-center text-dark h6">Master Id</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">Company Name</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">Designation</th>
+                                    <th class="th-sm fw-bold text-center text-dark h6">Start at Company</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">End at Company</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">Total Months</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">Reason for Leave</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">Offer Letter</th>
+                                    <th class="th-sm fw-bold text-left text-dark h6">Relieving Letter</th>
+                                    <th class="th-sm fw-bold">Action</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr hidden>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                {% for experience in experience_list %}
+
+                                <tr>
+                                    <td class="text-center">{{forloop.counter}}</td>
+                                    <td class="text-center">{{experience.id}}</td>
+                                    <td class="text-left">{{experience.company}}</td>
+                                    <td class="text-left">{{experience.designation}}</td>
+                                    <td class="text-center">{{experience.start_date}}</td>
+                                    <td class="text-center">{{experience.end_date}}</td>
+                                    <td class="text-center">{{experience.total_months}}</td>
+                                    <td class="text-left">{{experience.leave_reason}}</td>
+                                    <td class="text-left">{{experience.offer_letter}}</td>
+                                    <td class="text-left">{{experience.relieving_letter}}</td>
+                                    <td>
+                                        <a class="me-2" href="{% url 'Edit_experience' experience.id  %}"><span class="btn btn-outline-primary btn-sm"> Edit </span></a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center h6">#</th>
+                                    <th class="th-sm fw-bold text-center h6">Master Id</th>
+                                    <th class="th-sm fw-bold text-left h6">Company Name</th>
+                                    <th class="th-sm fw-bold text-left h6">Designation</th>
+                                    <th class="th-sm fw-bold text-center h6">Start at Company</th>
+                                    <th class="th-sm fw-bold text-left h6">End at Company</th>
+                                    <th class="th-sm fw-bold text-left h6">Total Months</th>
+                                    <th class="th-sm fw-bold text-left h6">Reason for Leave</th>
+                                    <th class="th-sm fw-bold text-left h6">Offer Letter</th>
+                                    <th class="th-sm fw-bold text_left h6">Relieving Letter</th>
+                                    <th class="th-sm fw-bold">Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

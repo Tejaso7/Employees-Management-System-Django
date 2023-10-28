@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Salary Slip</title>
+ <script src=
+"https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js">
+    </script>
+</head>
+<body style="border: 2px solid #000; padding: 10px;">
+<section id="content">
+    <section>
+    <div style="display: flex; justify-content: space-between;">
+        <div style="flex: 1; text-align: center;">
+            <img src="https://w7.pngwing.com/pngs/137/250/png-transparent-computer-mouse-pointer-cursor-icon-mouse-cursor-mouse-pointer-pointing-hand-icon-miscellaneous-angle-text-thumbnail.png" alt="hello" style="height: 80%;width:50%">
+         </div>
+        <div style="flex: 1; text-align: center;">
+            <h2>Salary Slip</h2>
+        </div>
+        <div style="flex: 1; text-align: center;">
+            <h4>Pay Period</h4>
+            <p>Month/Year: January 2023</p>
+        </div>
+    </div>
+   </section>
+    <br>
+    <!-- <hr style="border: 1px solid #333;"> -->
+    <div>
+        <strong>Company Name : Distinct Digital Media Pvt.Ltd.</strong><br><br>
+        <strong>Address :</strong> Distinct Digital Media Pvt.Ltd. Vascon Almonte IT Park, Sprint Co-Working Space 6th Floor, Rakshak Nagar, near Reliance Mall, Kharadi, Pune, Maharashtra, India , Pune-411014
+    </div>
+    <!-- <hr style="border: 1px solid #333;"> -->
+
+    <div style="display: flex; justify-content: space-between;">
+        <div style="flex: 1; text-align: center;">
+            <div style="text-align: left;">
+                <p><strong>Employee Name:</strong>  tejas </p>
+                <p><strong>Date of Joining:</strong> 01/01/2020</p>
+                <p><strong>PAN Number :</strong> Branch Name</p>
+                <p><strong>Branch :</strong> 30</p>
+                <p><strong>Gross:</strong> 30</p>
+                <p><strong>Payable Days:</strong> 30</p>
+            </div>
+        </div>
+        <div style="flex: 1; text-align: center;" >
+            <div style="text-align: left;" >
+                <p><strong>Employee ID:</strong> EMP001</p>
+                <p><strong>Designation:</strong> Software Engineer</p>
+                <p><strong>Department : </strong> Software Engineer</p>
+                <p><strong>UAN No:</strong> Software Engineer</p>
+                <p><strong>CTC :</strong> Software Engineer</p>
+            </div>
+        </div>
+    </div>
+    <hr>
+
+    <table border="1" style="border-collapse: collapse; width: 80%; margin: 2px auto;">
+        <thead>
+            <tr>
+                <th colspan="2" style="padding: 8px; text-align: left;">Payment Details:</th>
+                <th colspan="2" style="padding: 8px; text-align: left;">Deductions:</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td style="padding: 10px;">
+
+                    <p><strong>Basic Salary:</strong> </p>
+                    <p><strong>HRA:</strong></p>
+                    <p><strong>Medical Allowance:</strong> </p>
+
+                    <p><strong>Conveyance Allowance	:</strong> </p>
+                    <p><strong> Leave Travel Allowance:</strong></p>
+                    <p><strong>Special allowance:</strong> </p>
+
+                    </td>
+                    <td>
+                        <p>$5,000</p>
+                        <p>$500</p>
+                        <p>$500</p>
+                        <p>$4,500</p>
+                        <p> $500</p>
+                        <p> $500</p>
+
+                    </td>
+                <td style="padding: 8px;">
+                    <p><strong>	PT Maharashtra	:</strong> </p>
+                    <p><strong>	Employers 's share in PF:</strong> </p>
+                    <p><strong>	Health Insurance:</strong>  </p>
+                    <p><strong>	Employee 's share in PF:</strong> </p>
+
+
+
+                    </td>
+               <td>
+                <p> $500</p>
+                <p> $500</p>
+                <p> $500</p>
+                <p> $500</p>
+               </td>
+
+            </tr>
+            <tr>
+                <td colspan="2" style="padding: 8px;"><strong> Total Payments</strong></td>
+                <td colspan="2" style="padding: 8px;"><strong>Total Deductions</strong></td>
+
+            </tr>
+            <!-- Add more rows for other employees as needed -->
+            </tbody>
+            <tfoot>
+            <tr>
+                <td colspan="4" style="padding: 8px; text-align: right;"><strong>Net Pay:</strong></td>
+            </tr>
+            <tr>
+                <td style="padding: 8px;"><strong>Total Days</strong></td>
+                <td style="padding: 8px;"><strong>Paid Days(TD/WO/HL/PL/OT/OH/CO)</strong></td>
+                <td style="padding: 8px;"><strong>Unpaid</strong></td>
+                <td style="padding: 8px;"><strong>Leave Saved Monthly Yearly</strong></td>
+
+            </tr>
+            <tr>
+                <td style="padding: 8px;"></td>
+                <td style="padding: 8px;"></td>
+                <td style="padding: 8px;"></td>
+                <td style="padding: 8px;"></td>
+            </tr>
+        </tfoot>
+    </table>
+    <P>*Note : TD-Total worked days, WO- Weekly Off, HL-Paid Holidays, PL-Paid Leave, OT-Over Time Days, OH-Over Time Hrs,CO-Compensatory Off<br>
+        *Note : Leave Balance (if any) as on </P>
+        <strong>Amount in Words : Rupees Only</strong>
+    <div style="text-align: center;">
+        <a href="#" style="background-color: #0074cc; color: #fff; padding: 10px 20px; text-decoration: none; margin: 10px;">Download</a>
+    </div>
+</section>
+<div style="text-align: center;">
+           <button id="download-pdf" style="background-color: #0074cc; color: #fff; padding: 10px 20px; text-decoration: none; margin: 10px;">Download PDF</button>
+  </div>
+    <script>
+        document.getElementById('download-pdf')
+        .addEventListener('click', () => {
+            const element = document.getElementById('content');
+            const options = {
+                filename: 'GFG.pdf',
+                margin: 0,
+                image: { type: 'jpeg', quality: 1 },
+                html2canvas: { scale: 2 },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'letter',
+                    orientation: 'portrait'
+                }
+            };
+
+            html2pdf().set(options).from(element).save();
+        });
+    </script>
+</body>
+</html>

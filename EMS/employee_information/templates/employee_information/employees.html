@@ -1,0 +1,100 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+{% include 'employee_information/messages.html' %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <h3 class="fw-bold mb-4">Employee List</h3>
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered">
+                <colgroup>
+                    <col width="5%">
+                    <col width="15%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="20%">
+                    <col width="10%">
+                    <col width="10%">
+                </colgroup>
+                <thead>
+                <tr>
+                    <th class="text-center py-1">#</th>
+                    <th class="text-center py-1">Employee ID</th>
+                    <th class="text-left py-1">Name</th>
+                    <th class="text-left py-1">Email</th>
+                    <th class="text-center py-1">Phone</th>
+                    <th class="text-left py-1">Department</th>
+                    <th class="text-left py-1">Position</th>
+                    <th class="text-center py-1">Joining Date</th>
+                    <th class="text-center py-1">Assign</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for employee in employees %}
+                <tr>
+                    <td class="px-2 py-1 text-center">{{ forloop.counter }}</td>
+                    <td class="px-2 py-1 text-center">{{ employee.employee.employee_ID }}</td>
+                    <td class="px-2 py-1 text-left">{{ employee.employee.emp_name }}</td>
+                    <td class="px-2 py-1 text-left">{{ employee.employee.email }}</td>
+                    <td class="px-2 py-1 text-center">{{ employee.employee.phone }}</td>
+                    <td class="px-2 py-1 text-left">{{ employee.employee.department.name }}</td>
+                    <td class="px-2 py-1 text-left">{{ employee.employee.designation.name }}</td>
+                    <td class="px-2 py-1 text-start">{{ employee.employee.joining_date }}</td>
+                    <td class="px-2 py-1 text-center">
+                        <p class="fw-bold" style="color:#532fa8;">Manager: {{employee.manager.first_name}} {{employee.manager.last_name}}</p>
+                        <button type="button" class="btn btn-dark btn-sm" data-bs-target="#exampleModal-assignee{{employee.employee.id}}" data-bs-toggle="modal" id="myBtn1">Assignee</button>
+                        <div class="modal"
+                            id="exampleModal-assignee{{employee.employee.id}}" tabindex="-1"
+                            role="dialog"
+                            aria-labelledby="exampleModalLabel-2"
+                            aria-hidden="true">
+                            <div class="modal-dialog"
+                                role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title"
+                                            id="">
+                                            Assign Employee To Manager </h5>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form method="post"
+                                            action="{% url 'save_tag_employee' employee.employee.id %}"
+                                            enctype="multipart/form-data"
+                                            class="forms-sample">
+                                            {% csrf_token %}
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div class="form-group">
+                                                        <label class="my-1">Managers</label>
+                                                        <select class="form-control bg-light" name="manager" >
+                                                            <option value=" None ">Select Option</option>
+                                                            {% for managers in managers %}
+                                                            <option value=" {{managers.id }} ">{{managers.first_name}}{{managers.last_name}}</option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                 </div>
+                                            <hr>
+                                            <div class="form-group"
+                                                style="justify-content: center; text-align: center; ">
+                                                <button
+                                                    type="submit"
+                                                    class="btn btn-primary mr-2">Save</button>
+                                                <button
+                                                    aria-label="Close"  class="btn btn-light mr-2"
+                                                    data-bs-dismiss="modal" type="button">Cancel</button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock pageContent %}

@@ -1,0 +1,29 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+{% include 'employee_information/messages.html' %}
+{% load static %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-4">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'salary_hr' %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-2">Select Employee</label>
+                        <select name="employee" id="employee" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            <option value="">Select Option</option>
+                            {% for employee in employee %}
+                                    <option value="{{ employee.id }}">{{ employee.emp_name }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                </div>
+                 <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                    <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><span>Cancel</span></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

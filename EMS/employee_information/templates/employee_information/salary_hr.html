@@ -1,0 +1,89 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'save_salary' %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-2">Employee</label>
+
+                        <select name="employee" id="employee" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            <option value="">Select Option</option>
+                            {% for employee in employee %}
+                                    <option value="{{ employee.id }}">{{ employee.emp_name }}</option>
+                            {% endfor %}
+
+                        </select>
+
+                        <label class="mx-2 my-2">Basic Salary</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="basic_salary" type="number" step="any" value="{{salary.basic_salary}}" required/>
+
+                        <label class="mx-2 my-2">HRA</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="hra" type="number" step="any" value="{{salary.HRA}}" required/>
+
+                        <label class="mx-2 my-2">Other</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="other" type="number" step="any"  value="{{salary.other}}" required/>
+
+                        <label class="mx-2 my-2">Payable Days</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="payable_days" type="number" step="any"  value="{{salary.payable_days|floatformat:'0'}}" required/>
+
+                    </div>
+                    <div class="col form-group mx-4">
+                        <label class="mx-2 my-2">Date</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="select_date" type="date" required/>
+
+                        <label class="mx-2 my-2">Medical Allowance</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="medical_allowance" type="number" step="any" value="{{salary.medical_allowance}}" required/>
+
+                        <label class="mx-2 my-2">Health Insurance</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="health_insurance" type="number" step="any" value="{{salary.health_insurance}}" required/>
+
+                        <label class="mx-2 my-2">Gross</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="gross" type="number" step="any" value="{{salary.gross|floatformat:'0'}}" required/>
+
+                    </div>
+
+                     <div class="col form-group mx-4">
+                        <label class="mx-2 my-2">Conveyance Allowance</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="conveyance_allowance" type="number" step="any"  value="{{salary.conveyance_allowance}}" required/>
+
+                        <label class="mx-2 my-2">Leave Travel Allowance</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="leave_allowance" type="number" step="any"  value="{{salary.leave_travel_allowance}}" required/>
+
+                        <label class="mx-2 my-2">Special Allowance</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="special_allowance" type="number" step="any"  value="{{salary.special_allowance}}" required/>
+
+                        <label class="mx-2 my-2">UAN No</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="uan_no" type="number" step="any"  value="{{salary.uan_no|floatformat:'0'}}" required/>
+
+                    </div>
+
+                    <div class="col form-group mx-4">
+                        <label class="mx-2 my-2">PT Maharashtra</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="pt_maharashtra" type="number" step="any"  value="{{salary.pt_maharashtra}}" required/>
+
+                        <label class="mx-2 my-2">Employer's Share in PF</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="Employer_share_pf" type="number" step="any"  value="{{salary.employers_share_in_pf}}" required/>
+
+                        <label class="mx-2 my-2">Employee's Share in PF</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="Employee_share_pf" type="number" step="any"  value="{{salary.employee_share_in_pf}}" required/>
+
+                        <label class="mx-2 my-2">CTC</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="ctc" type="number" step="any"  value="{{salary.ctc|floatformat:'0'}}" required/>
+
+                    </div>
+
+                </div>
+
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                    <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+                    <a class="btn btn-outline-warning mx-1" href="{% url 'view_employee_salary' %}"><strong> View </strong></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,79 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+{% load mathfilters %}
+{% include 'employee_information/messages.html' %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+         <form method="POST" action="{% url 'saveBreak' %}">
+            {% csrf_token %}
+            <button class="btn btn-dark mx-2" type="submit" name="start">Start Break</button>
+            <button class="btn btn-success mx-4" type="submit" name="end">End Break</button>
+        </form>
+        <div class="row mt-3 mx-1">
+            <h4 class="col text-left">Working Hours History</h4>
+            <h4 class="text-left">Day:</h4>
+        </div>
+        <div class="container first-container col-sm-12 pull-left">
+            <table class="table table-hover table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th class="text-center">Sr.No.</th>
+                    <th class="text-left">User</th>
+                    <th class="text-center">Day</th>
+                    <th class="text-center">First Log-On</th>
+                    <th class="text-center">Last Log-Off</th>
+                    <th class="text-center">Total Session Time</th>
+                    <th class="text-center">Active Time</th>
+                    <th class="text-center">Locked Time</th>
+                    <th class="text-center th-sm fw-bold">View</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr hidden>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>61</td>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>61</td>
+                    <td>2011/04/25</td>
+                    <td>$320,800</td>
+                </tr>
+                {% for login_hrs in login_hrs %}
+                <tr>
+                    <td class="text-center">{{forloop.counter}}</td>
+                    <td class="text-left">{{login_hrs.employee.emp_name}}</td>
+                    <td class="text-center">{{login_hrs.date}}</td>
+                    <td class="text-center">{{login_hrs.login_dtime|time:'h:i:s'}}</td>
+                    <td class="text-center">{{login_hrs.logout_dtime|time:'h:i:s'}}</td>
+                    <td class="text-center">{{ login_hrs.session_time }}</td>
+                    <td class="text-center">{{ login_hrs.active_time }}</td>
+                    <td class="text-center">{{ login_hrs.break_time }}</td>
+                    <td>
+                        <a class="me-2" href="{% url 'view_average_login_hrs' login_hrs.id %}"><span
+                                class="btn-sm text-left material-icons mdc-list-item__start-detail mdc-drawer-item-icon" style="color:green;">add_box
+                        </span></a>
+                    </td>
+                </tr>
+                {% endfor %}
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <th class="text-center">Sr.No.</th>
+                    <th class="text-left">User</th>
+                    <th class="text-center">Day</th>
+                    <th class="text-center">First Log-On</th>
+                    <th class="text-center">Last Log-Off</th>
+                    <th class="text-center">Total Session Time</th>
+                    <th class="text-center">Active Time</th>
+                    <th class="text-center">Locked Time</th>
+                    <th class="text-center th-sm fw-bold">View</th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

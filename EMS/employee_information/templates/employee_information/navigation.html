@@ -1,0 +1,101 @@
+{% load static %}
+<!-- partial:partials/_sidebar.html -->
+<aside class="mdc-drawer mdc-drawer--dismissible mdc-drawer--open" style="width:17%;">
+    <div class="mdc-drawer__header border-bottom border-light">
+        <a class="brand-logo" href="{% url 'home-page' %}">
+            <h4 class="text-center text-light">Distinct Digital Media Pvt.Ltd.</h4>
+        </a>
+    </div>
+    <div class="mdc-drawer__content">
+        <div class="mdc-list-group">
+            <nav class="mdc-list mdc-drawer-menu">
+                {% if user.user_type == 'Admin' %}
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'home-page' %}">
+                            <i aria-hidden="true" class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon">home</i>
+                            Home
+                        </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'department-page' %}">
+                            <i aria-hidden="true" class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon">business</i>
+                            Department List
+                        </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'position-page' %}">
+                            <i aria-hidden="true" class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon">list</i>
+                            Position List
+                        </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'employee-page' %}">
+                            <i aria-hidden="true" class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon">group</i>
+                            Employee List
+                        </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'view_leave' %}">
+                            <i aria-hidden="true" class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon">event_note</i>
+                            Leave Details
+                        </a>
+                    </div>
+                {% endif %}
+                {% if user.user_type == 'Employee' or user.user_type == 'HR' or user.user_type == 'Manager' or user.user_type == 'Admin' %}
+                     <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'personal_info' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">person</i> Personal Information
+                        </a>
+                    </div>
+
+                {% endif %}
+                {% if user.user_type == 'Employee' or user.user_type == 'HR' or user.user_type == 'Manager' %}
+
+                      <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'select_salary_date' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">monetization_on</i> Salary Details
+                        </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'leave_request' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">event_note</i> Leave Details
+                        </a>
+                    </div>
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'login_hrs' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">timelapse</i> Login Hrs
+                        </a>
+                    </div>
+                {% endif %}
+                {% if user.user_type == 'HR' %}
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'select_employee' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">monetization_on</i>
+                            Employee Salary Details
+                        </a>
+                    </div>
+                     <div class="mdc-list-item mdc-drawer-item">
+                            <a class="mdc-drawer-link" href="{% url 'employee_login' %}">
+                                <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">timelapse</i> Employee Login Hrs
+                            </a>
+                     </div>
+                {% endif %}
+                {% if user.user_type == 'Manager' %}
+                     <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'employee_leave' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">event_note</i>Employee Leave Details
+                        </a>
+                    </div>
+                {% endif %}
+                {% if user.user_type == 'Employee' or user.user_type == 'HR' or user.user_type == 'Manager' or user.user_type == 'Admin' %}
+                    <div class="mdc-list-item mdc-drawer-item">
+                        <a class="mdc-drawer-link" href="{% url 'help_desk' %}">
+                            <i class="material-icons mdc-list-item__start-detail mdc-drawer-item-icon" aria-hidden="true">help</i> IT Help Desk
+                        </a>
+                    </div>
+                {% endif %}
+              </nav>
+        </div>
+    </div>
+</aside>
+<!-- partial -->

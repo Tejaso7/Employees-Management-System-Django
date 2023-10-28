@@ -1,0 +1,46 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'updateExperience' experience.id %}" class="form-inline" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <h4>Experience Details</h4>
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-1">Company Name</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="company_name" type="text" value="{{experience.company}}"/>
+
+                        <label class="mx-2 my-1">Designation</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="designation" type="text" value="{{experience.designation}}"/>
+
+                        <label class="mx-2 my-1">Reason for Leave</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="leave_reason" type="text" value="{{experience.leave_reason}}"/>
+                    </div>
+
+                    <div class="col form-group">
+                        <label class="mx-2 my-1">Start From Month/Year</label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="month_year_start" type="date" value="{{experience.start_date|date:'Y-m-d'}}"/>
+
+                        <label class="mx-2 my-2">Offer Letter</label>
+                        <a href="{{experience.offer_letter}}">{{experience.offer_letter}}</a><input class="form-control input-sm ml-2 mr-2" type="file" name="offer_letter_pdf" accept=".pdf">
+
+                        <input class="form-control  input-lg  ml-2 mr-2" name="total_months" type="text"  hidden/>
+                    </div>
+                     <div class="col form-group">
+                         <label class="mx-2 my-1">To Month/Year </label>
+                         <input class="form-control  input-lg  ml-2 mr-2" name="month_year_end" type="date" value="{{experience.end_date|date:'Y-m-d'}}"/>
+
+                         <label class="mx-2 my-2">Relieving Letter</label>
+                         <a href="{{experience.relieving_letter}}">{{experience.relieving_letter}}</a> <input type="file" class="form-control input-sm  ml-2 mr-2" name="relieving_letter_pdf" accept=".pdf">
+                     </div>
+                </div>
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Update"/>
+                    <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

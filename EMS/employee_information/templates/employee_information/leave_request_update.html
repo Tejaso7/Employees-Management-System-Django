@@ -1,0 +1,83 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <h5 class="mt-3">Update Leave Request:</h5>
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'updateLeave' leave_request.id %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-2">Leave Start Date</label>
+                        <input class="form-control  input-lg  ml-2 mr-2" id="start_date" name="start_date" type="date" value="{{leave_request.start_date|date:'Y-m-d'}}"/>
+
+                        <label class="mx-2 my-3">Employee Name </label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="emp_name" type="text" value="{{ leave_request.employee.emp_name }}"/>
+
+                        <label class="mx-2 my-3">Letter Head</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="letter_head" type="text" value="{{leave_request.Letter_head}}"/>
+
+
+                    </div>
+                    <div class="col form-group mx-4">
+
+                        <label class="mx-2 my-2">Leave End Date </label>
+                        <input class="form-control  input-lg  ml-2 mr-2" onfocusout="cal()" name="end_date" id="end_date" type="date" value="{{leave_request.end_date|date:'Y-m-d'}}"/>
+
+                        <label class="mx-2 my-3">Leave Reason </label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="leave_reason" type="text" value="{{leave_request.reason}}"/>
+
+                        <label class="mx-2 my-3">Status</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="status" type="text" value="{{leave_request.status}}"/>
+
+                    </div>
+
+                     <div class="col form-group mx-4">
+                        <label class="mx-2 my-2">Total Leave Days</label>
+                        <input class="form-control input-lg ml-2 mr-2"  name="total_leave_days" id="total_leave_days" type="text" value="{{leave_request.total_days|floatformat:'0'}}"/>
+
+                        <label class="mx-2 my-3">Leave Type</label>
+                        <select name="leave_type" id="leave_type" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            <option value=" {{leave_request.leave_type.id}} ">{{leave_request.leave_type.leave_name}}</option>
+                            {% for leave_type in leave_type %}
+                                <option value="{{ leave_type.id }}">{{ leave_type.leave_name }}</option>
+                            {% endfor %}
+
+                        </select>
+                        <label class="mx-2 my-3">Leave Approver</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="leave_approver" type="text" value="{{leave_request.leave_approver}}"/>
+
+                    </div>
+
+                    <div class="col form-group">
+                         <label class="my-5" for="halfday">Half Day</label>
+                        <input type="checkbox" id="halfday" name="halfday" {% if leave_request.half_day == True %} checked="checked"{% endif %}/><br>
+                    </div>
+
+
+                </div>
+
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                     <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}{% block ScriptBlock %}
+<script type="text/javascript">
+        function GetDays(){
+                var end_date = new Date(document.getElementById("end_date").value);
+                var start_date = new Date(document.getElementById("start_date").value);
+                return parseInt((end_date - start_date) / (24 * 3600 * 1000));
+        }
+
+        function cal(){
+        if(document.getElementById("end_date")){
+            document.getElementById("total_leave_days").value=GetDays();
+
+        }
+    }
+
+</script>
+{% endblock ScriptBlock %}

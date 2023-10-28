@@ -1,0 +1,92 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Back</strong></a>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="initCom" style="overflow:auto; width:100%; position:relative; padding:2px">
+                        <div class="table-responsive text-nowrap p-2">
+
+                            <table cellspacing="1" class="table table-hover table-bordered table-sm me-3"
+                                   id="dtBasicExample" width="100%">
+                                <thead>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-center">Employee Id</th>
+                                    <th class="th-sm fw-bold text-left">Start Date</th>
+                                    <th class="th-sm fw-bold text-left">End Date</th>
+                                    <th class="th-sm fw-bold text-center">Total Days</th>
+                                    <th class="th-sm fw-bold text-left">Half Day</th>
+                                    <th class="th-sm fw-bold text-left ">Leave Type</th>
+                                    <th class="th-sm fw-bold text-left">Reason for Leave</th>
+                                    <th class="th-sm fw-bold text-left">Approve</th>
+                                    <th class="th-sm fw-bold">Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr hidden>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                    <td>2011/04/25</td>
+                                    <td>$320,800</td>
+                                </tr>
+                                {% for leave in leave %}
+                                <form action="{% url 'update_emp_request' leave.id %}" class="form-inline"
+                                      method="post">
+                                    {% csrf_token %}
+                                    <tr>
+                                        <td class="text-center">{{ forloop.counter }}</td>
+                                        <td class="text-center">{{ leave.employee.employee_ID }}</td>
+                                        <td class="text-left">{{ leave.start_date }}</td>
+                                        <td class="text-left">{{ leave.end_date }}</td>
+                                        <td class="text-center">{{ leave.total_days|floatformat }}</td>
+                                        <td class="text-center">{{ leave.half_day|floatformat }}</td>
+                                        <td class="text-left">{{ leave.leave_type.leave_name }}</td>
+                                        <td class="text-left">{{ leave.reason }}</td>
+                                        <td class="text-left">
+                                            <select class="form-select input-lg rounded-0 ml-2 mr-2" name="status"
+                                                    required>
+                                                <option value="{{ leave.status }}">{{ leave.status }}</option>
+                                                <option selected="selected" value="Pending">Pending</option>
+                                                <option value="Approved">Approved</option>
+                                            </select>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm" type="submit">Update</button>
+                                        </td>
+                                    </tr>
+                                </form>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-center">Employee Id</th>
+                                    <th class="th-sm fw-bold text-left">Start Date</th>
+                                    <th class="th-sm fw-bold text-left">End Date</th>
+                                    <th class="th-sm fw-bold text-center">Total Days</th>
+                                    <th class="th-sm fw-bold text-center">Half Day</th>
+                                    <th class="th-sm fw-bold text-left ">Leave Type</th>
+                                    <th class="th-sm fw-bold text-left">Reason for Leave</th>
+                                    <th class="th-sm fw-bold text-left">Approve</th>
+                                    <th class="th-sm fw-bold">Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

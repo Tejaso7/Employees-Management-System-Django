@@ -1,0 +1,204 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+{% include 'employee_information/messages.html' %}
+{% load static %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'savePersonal' %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <h4>Employee Details:</h4>
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2" for="name">Name</label>
+                        <input class="form-control input-lg ml-2 mr-2 w-10" name="name" type="text" value="" id="name" required/>
+
+                        <label class="mx-2 my-1">Email</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="email" type="email" required/>
+
+                        <label class="mx-2 my-1">Contact</label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="contact" type="tel" value="" required/>
+
+                        <label class="mx-2 my-1">Address</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="address" type="text" value="" required/>
+
+                        <label  class="mx-2 my-1">Employee Id</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="empid" type="text" value="" required/>
+
+                        <label class="mx-2 my-1">Emergency Contact</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="emer_contact" type="tel" value="" required/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="mx-2">Blood Group</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="blood" type="text" required/>
+
+                        <label class="mx-2 my-1">PAN Number </label>
+                        <input class="form-control input-lg ml-2 mr-2" name="pan" type="text" required/>
+
+                        <label class="mx-2 my-1">Aadhar Number </label>
+                        <input class="form-control input-lg ml-2 mr-2" name="aadhar" type="text" required/>
+
+                        <label class="mx-2 my-1">Department</label>
+                        <select name="department_id" id="department_id" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            {% if not employee.department %}
+                            <option value="1" disabled selected>Please Select Here</option>
+                            {% else %}
+                            <option value="1" disabled>Please Select Here</option>
+                            {% endif %}
+                            {% for department in departments %}
+                                {% if employee.department and employee.department == department.id %}
+                                <option value="{{ department.id }}" selected>{{ department.name }}</option>
+                                {% else %}
+                                <option value="{{ department.id }}">{{ department.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+
+                        </select>
+
+                        <label class="mx-2 my-1">Designation</label>
+                        <select name="designation" id="designation_id" class="form-select input-lg rounded-0 ml-2 mr-2" required>
+                            {% if not employee.designation %}
+                            <option value="1" disabled selected>Please Select Here</option>
+                            {% else %}
+                            <option value="1" disabled>Please Select Here</option>
+                            {% endif %}
+                            {% for designation in designations %}
+                                {% if employee.designation and employee.designation == designation.id %}
+                                <option value="{{ designation.id }}" selected>{{ designation.name }}</option>
+                                {% else %}
+                                <option value="{{ designation.id }}">{{ designation.name }}</option>
+                                {% endif %}
+                            {% endfor %}
+
+                        </select>
+
+                        <label class="mx-2 my-1">Joining Date</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="joining" type="date" value="" required/>
+
+                    </div>
+                </div>
+
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                    <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'saveEducational' %}" class="form-inline" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <h4>Educational Details</h4>
+            <table class="table table-bordered table-hover">
+              <tr>
+                <th class="text-center text-dark h6">Class</th>
+                <th class="text-center text-dark h6">Stream</th>
+                <th class="text-center text-dark h6">University/College</th>
+                <th class="text-center text-dark h6">Passing Year</th>
+                <th class="text-center text-dark h6">Grade/Percentage</th>
+                <th class="text-left text-dark h6">Attach in PDF</th>
+              </tr>
+              <tr>
+                <td class="text-left">10th</td>
+                <td><input class="form-control input" type="text" name="tenth_stream" placeholder="Enter Stream"></td>
+                <td><input class="form-control input" type="text" name="tenth_Uni" placeholder="Enter University/College"></td>
+                <td><input class="form-control input" type="text" name="tenth_year" placeholder="Enter Passing Year"></td>
+                <td><input class="form-control input" type="text" name="tenth_percent" placeholder="Enter Percentage"></td>
+                <td><input class="form-control input-sm" type="file" name="tenth_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">12th</td>
+                <td><input class="form-control input" type="text" name="twelfth_stream" placeholder="Enter Stream"></td>
+                <td><input class="form-control input" type="text" name="twelfth_Uni" placeholder="Enter University/College"></td>
+                <td><input class="form-control input" type="text" name="twelfth_year" placeholder="Enter Passing Year"></td>
+                <td><input class="form-control input" type="text" name="twelfth_percent" placeholder="Enter Percentage"></td>
+                <td><input class="form-control input-sm" type="file" name="twelfth_pdf" accept=".pdf"></td>
+              </tr>
+              <tr>
+                <td class="text-left">Degree</td>
+                <td><input class="form-control input" type="text" name="degree_stream" placeholder="Enter Stream"></td>
+                <td><input class="form-control input" type="text" name="degree_Uni" placeholder="Enter University/College"></td>
+                <td><input class="form-control input" type="text" name="degree_year" placeholder="Enter Passing Year"></td>
+                <td><input class="form-control input" type="text" name="degree_percent" placeholder="Enter Percentage"></td>
+                <td><input class="form-control input-sm" type="file" name="degree_pdf" accept=".pdf"></td>
+              </tr>
+<!--               <tr>-->
+<!--                <td class="text-left">MasterDegree</td>-->
+<!--                <td><input type="text" name="md_stream" placeholder="Enter Stream"></td>-->
+<!--                <td><input type="text" name="md_Uni" placeholder="Enter University/College"></td>-->
+<!--                <td><input type="text" name="md_year" placeholder="Enter Passing Year"></td>-->
+<!--                <td><input type="text" name="md_percent" placeholder="Enter Percentage"></td>-->
+<!--                <td><input class="form-control input" type="file" name="md_pdf" accept=".pdf"></td>-->
+<!--              </tr>-->
+<!--               <tr>-->
+<!--                <td  class="text-left">Diploma</td>-->
+<!--                <td><input type="text" name="diploma_stream" placeholder="Enter Stream"></td>-->
+<!--                <td><input type="text" name="diploma_Uni" placeholder="Enter University/College"></td>-->
+<!--                <td><input type="text" name="diploma_year" placeholder="Enter Passing Year"></td>-->
+<!--                <td><input type="text" name="diploma_percent" placeholder="Enter Percentage"></td>-->
+<!--                <td><input class="form-control input" type="file" name="diploma_pdf" accept=".pdf"></td>-->
+<!--              </tr>-->
+              <tr>
+                <td class="text-left">Other</td>
+                <td><input class="form-control input" type="text" name="other_stream" placeholder="Enter Stream"></td>
+                <td><input class="form-control input" type="text" name="other_Uni" placeholder="Enter University/College"></td>
+                <td><input class="form-control input" type="text" name="other_year" placeholder="Enter Passing Year"></td>
+                <td><input class="form-control input" type="text" name="other_percent" placeholder="Enter Percentage"></td>
+                <td><input class="form-control input-sm" type="file" name="other_pdf" accept=".pdf"></td>
+              </tr>
+            </table>
+                <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                 <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+<div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'saveExperience' %}" class="form-inline" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+            <h4>Experience Details</h4>
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-1">Company Name</label>
+                        <input class="form-control input-lg ml-2 mr-2" name="company_name" type="text" value=""/>
+
+                        <label class="mx-2 my-1">Designation</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="designation" type="text"/>
+
+                        <label class="mx-2 my-1">Reason for Leave</label>
+                        <input class="form-control input-lg  ml-2 mr-2" name="leave_reason" type="text"/>
+
+                    </div>
+                    <div class="col form-group">
+                        <label class="mx-2 my-1">Start From Month/Year</label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="month_year_start" type="date" value=""/>
+
+                        <label class="mx-2 my-2">Offer Letter</label>
+                        <input class="form-control input-sm ml-2 mr-2" type="file" name="offer_letter_pdf" accept=".pdf">
+
+                        <input class="form-control  input-lg  ml-2 mr-2" name="total_months" type="text"  hidden/>
+                    </div>
+                    <div class="col form-group">
+                        <label class="mx-2 my-1">To Month/Year </label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="month_year_end" type="date" value=""/>
+
+
+                        <label class="mx-2 my-2">Relieving Letter</label>
+                        <input type="file" class="form-control input-sm  ml-2 mr-2" name="relieving_letter_pdf" accept=".pdf">
+                    </div>
+                </div>
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                     <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

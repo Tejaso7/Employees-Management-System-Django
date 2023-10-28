@@ -1,0 +1,25 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-8 mt-2" style="margin-left:40%;">
+    <div class="mdc-card">
+        <h5 class="mt-3">Update Leave Type:</h5>
+        <div class="row d-flex justify-content-between align-items-center">
+            <form action="{% url 'save_leave_type' leave.id %}" class="form-inline" method="post">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col form-group">
+                        <label class="mx-2 my-2">Leave Name</label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="leave_name" type="text" value="{{leave.leave_name}}"/>
+
+                        <label class="mx-2 my-3">Total Allocation </label>
+                        <input class="form-control  input-lg  ml-2 mr-2" name="total_allocation" type="text" value="{{ leave.total_allocation }}"/>
+
+                    </div>
+                <div class="form-btn mt-4">
+                    <input class="btn btn-outline-dark fw-bold" name="btnSubmit" type="submit" value="Submit"/>
+                     <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Cancel</strong></a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

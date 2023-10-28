@@ -1,0 +1,44 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-10">
+    <div class="mdc-card" style="margin-left:25%;">
+      <div class="container">
+        <h4 class="fw-bold">Report a Technical Issue</h4>
+          {% include 'employee_information/messages.html' %}
+        <form action="{% url 'save_IT_Help' %}" class="form-inline" method="post">
+            {% csrf_token %}
+            <div class="form-group my-1">
+                <label for="issue-type">Issue Type</label>
+                <select class="form-control" id="issue-type" name="issue-type" required>
+                    <option value="">Select an issue type</option>
+                    <option value="bug">Bug</option>
+                    <option value="feature-request">Feature Request</option>
+                    <option value="Third-party software problems">Third-party software problems</option>
+                    <option value="Operating system error or failure">Operating system error or failure</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group my-3">
+                <label for="description">Issue Description</label>
+                <textarea class="form-control" name="issue_description" id="description" rows="5" required></textarea>
+            </div>
+            <div class="form-group my-3">
+                <label for="priority">Priority</label>
+                <select class="form-control" id="priority" name="priority" required>
+                    <option value="">Select a priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div class="form-group my-3">
+                <label for="email">Enter the Email to which you want to report Problem</label>
+                <input type="email" class="form-control" name="to_email" id="email" placeholder="Enter the mail-Id to send mail" required>
+            </div>
+            <button type="submit" class="btn btn-outline-dark">Submit</button>
+            <a class="btn btn-outline-primary mx-1" onclick="javascript:history.back();"><strong>Back</strong></a>
+
+        </form>
+    </div>
+    </div>
+</div>
+{% endblock %}

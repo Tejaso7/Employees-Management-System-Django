@@ -1,0 +1,113 @@
+{% extends "employee_information/base.html" %} {% block pageContent %}
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card py-2">
+        <div class="d-flex justify-content-between align-items-center">
+           <a class="mdc-button mdc-button--raised mx-3" onclick="javascript:history.back();"><strong>Back</strong></a>
+            <div class="text-start">
+                <button type="button" class="btn mdc-button--raised btn-md p-2 mr-4" data-bs-target="#exampleModal-add-leave" data-bs-toggle="modal" id="add_leave">Add New</button>
+                     <div class="modal" id="exampleModal-add-leave" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel-2" aria-hidden="true">
+                        <div class="modal-dialog"
+                            role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title"
+                                        id="">
+                                        Add Leave Type </h5>
+                                </div>
+                                <div class="modal-body">
+                                    <form method="post"
+                                        action="{% url 'save_new_leave'  %}"
+                                        enctype="multipart/form-data"
+                                        class="forms-sample">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <label class="my-1">Leave Name</label>
+                                                    <input class="form-control input-lg ml-2 mr-2" name="leave_name" type="text"/>
+
+                                                    <label class="my-1">Total Allocation</label>
+                                                    <input class="form-control input-lg ml-2 mr-2" name="total_allocation" type="text"/>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="form-group"
+                                            style="justify-content: center; text-align: center; ">
+                                            <button
+                                                type="submit"
+                                                class="btn btn-primary mr-2">Save</button>
+                                            <button
+                                                aria-label="Close"  class="btn btn-light mr-2"
+                                                data-bs-dismiss="modal" type="button">Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                     </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <div class="row d-flex justify-content-between align-items-center">
+            <div class="row">
+                <div class="col-sm-12">
+                        <div class="">
+                            <table cellspacing="1" class="table table-hover table-bordered table-sm"
+                                   id="dtBasicExample" width="80%">
+                                <thead>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-center">Leave Id</th>
+                                    <th class="th-sm fw-bold text-left">Leave Name</th>
+                                    <th class="th-sm fw-bold text-center">Total Allocation</th>
+                                    <th class="th-sm fw-bold text-left">Action</th>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr hidden>
+                                    <td>Tiger Nixon</td>
+                                    <td>System Architect</td>
+                                    <td>Edinburgh</td>
+                                    <td>61</td>
+                                    <td>2011/04/25</td>
+                                </tr>
+                                {% for leave in leave %}
+                                <form action="{% url 'update_leave' leave.id %}" class="form-inline" method="post">
+                                    {% csrf_token %}
+                                    <tr>
+                                        <td class="text-center">{{ forloop.counter }}</td>
+                                        <td class="text-center">{{ leave.id }}</td>
+                                        <td class="text-left">{{ leave.leave_name }}</td>
+                                        <td class="text-center">{{ leave.total_allocation }}</td>
+                                        <td>
+                                            <button class="btn btn-outline-primary btn-sm float-start" type="submit">Update</button>
+                                        </td>
+                                    </tr>
+                                </form>
+                                {% endfor %}
+                                </tbody>
+                                <tfoot>
+                                <tr>
+                                    <th class="th-sm fw-bold text-center">#</th>
+                                    <th class="th-sm fw-bold text-center">Leave Id</th>
+                                    <th class="th-sm fw-bold text-left">Leave Name</th>
+                                    <th class="th-sm fw-bold text-center">Total Allocation</th>
+                                    <th class="th-sm fw-bold text-left">Action</th>
+                                </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
